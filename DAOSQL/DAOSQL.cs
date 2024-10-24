@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAOSQL
 {
-    internal class DAOSQL : IDAO
+    public class DAOSQL : IDAO
     {
-        public IProducer CreateNewProcucer()
+        public IProducer CreateNewProducer()
         {
             throw new NotImplementedException();
         }
@@ -20,6 +20,15 @@ namespace DAOSQL
         }
 
         public IEnumerable<ITelescope> GetAllTelescopes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertNewProducer(IProducer p)
+        {
+            throw new NotImplementedException();
+        }
+        public void InsertNewTelescope(ITelescope t)
         {
             throw new NotImplementedException();
         }

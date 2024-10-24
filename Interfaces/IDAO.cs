@@ -2,9 +2,12 @@
 {
     public interface IDAO
     {
+        IProducer CreateNewProducer();
         IEnumerable<IProducer> GetAllProducers();
         IEnumerable<ITelescope> GetAllTelescopes();
 
-        IProducer CreateNewProcucer();
+        void InsertNewProducer(IProducer p);
+        void InsertNewTelescope(ITelescope t);
+
     }
 }

@@ -23,7 +23,7 @@ namespace C__project
             }
 
             string nameProducer = Console.ReadLine();
-            IProducer producer = dao.CreateNewProcucer();
+            IProducer producer = dao.CreateNewProducer();
             producer.Name = nameProducer;
         }
     }

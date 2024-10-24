@@ -7,21 +7,43 @@ using System.Threading.Tasks;
 
 namespace DAOFile
 {
-    internal class DAOFile : IDAO
+    public class DAOFile : IDAO
     {
-        public IProducer CreateNewProcucer()
+        public List<ITelescope> listOfTelescopes;
+        public List<IProducer> listOfProducers;
+
+        public IProducer CreateNewProducer()
         {
-            throw new NotImplementedException();
+            return new Producer();
         }
 
         public IEnumerable<IProducer> GetAllProducers()
         {
-            throw new NotImplementedException();
+            return listOfProducers;
         }
 
         public IEnumerable<ITelescope> GetAllTelescopes()
         {
+            return listOfTelescopes;
+        }
+
+        public void InsertNewProducer(IProducer p)
+        {
             throw new NotImplementedException();
+        }
+
+        public void InsertNewTelescope(ITelescope t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveInFile()
+        {
+            string file = "newFile.txt";
+        }
+        public void LoadFromFile()
+        {
+
         }
     }
 }
