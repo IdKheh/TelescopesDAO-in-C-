@@ -2,7 +2,7 @@
 
 namespace DAOMock
 {
-    internal class Producer : IProducer
+    internal class Producer : Interfaces.IProducer
     {
         private int _id;
         private string _name;

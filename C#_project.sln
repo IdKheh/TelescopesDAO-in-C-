@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C#_project", "C#_project\C#_project.csproj", "{1EAF4860-6161-41D2-8434-05FE6F5267B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C#_project", "C#_project\C#_project.csproj", "{1EAF4860-6161-41D2-8434-05FE6F5267B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{EFD23288-78B7-4002-8BDA-9B7AE93022C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{EFD23288-78B7-4002-8BDA-9B7AE93022C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOMock", "DAOMock\DAOMock.csproj", "{241237C4-3DE9-4E34-A103-D14494AA7714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOMock", "DAOMock\DAOMock.csproj", "{241237C4-3DE9-4E34-A103-D14494AA7714}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOFile", "DAOFile\DAOFile.csproj", "{59D36841-9620-4341-A67A-E9E5692CDC40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOFile", "DAOFile\DAOFile.csproj", "{59D36841-9620-4341-A67A-E9E5692CDC40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOSQL", "DAOSQL\DAOSQL.csproj", "{5C40AE9F-BAE8-461C-8222-10506152E841}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOSQL", "DAOSQL\DAOSQL.csproj", "{77EDCB91-1BC1-4A22-84F3-681D0DC35349}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{59D36841-9620-4341-A67A-E9E5692CDC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59D36841-9620-4341-A67A-E9E5692CDC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59D36841-9620-4341-A67A-E9E5692CDC40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C40AE9F-BAE8-461C-8222-10506152E841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C40AE9F-BAE8-461C-8222-10506152E841}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C40AE9F-BAE8-461C-8222-10506152E841}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C40AE9F-BAE8-461C-8222-10506152E841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77EDCB91-1BC1-4A22-84F3-681D0DC35349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77EDCB91-1BC1-4A22-84F3-681D0DC35349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77EDCB91-1BC1-4A22-84F3-681D0DC35349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77EDCB91-1BC1-4A22-84F3-681D0DC35349}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

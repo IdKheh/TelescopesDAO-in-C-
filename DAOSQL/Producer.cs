@@ -1,8 +1,12 @@
-﻿using Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DAOSQL
 {
-    internal class Producer : IProducer
+    internal class Producer : Interfaces.IProducer
     {
         private int _id;
         private string _name;

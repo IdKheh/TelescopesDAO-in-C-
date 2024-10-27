@@ -1,15 +1,22 @@
 ﻿using Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAOSQL
 {
     public class DAOSQL : IDAO
     {
+        public DAOSQL() { }
+
         public IProducer CreateNewProducer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteProducer(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTelescope(int id)
         {
             throw new NotImplementedException();
         }
@@ -24,11 +31,22 @@ namespace DAOSQL
             throw new NotImplementedException();
         }
 
-        public void InsertNewProducer(IProducer p)
+        public void InsertNewProducer(int id, string name)
         {
             throw new NotImplementedException();
         }
-        public void InsertNewTelescope(ITelescope t)
+
+        public void InsertNewTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ModifyProducer(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ModifyTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
         {
             throw new NotImplementedException();
         }

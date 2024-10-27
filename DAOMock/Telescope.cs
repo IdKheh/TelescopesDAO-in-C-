@@ -2,7 +2,7 @@
 
 namespace DAOMock
 {
-    internal class Telescope : ITelescope
+    internal class Telescope : Interfaces.ITelescope
     {
         private int _id;
         private int _aperture;

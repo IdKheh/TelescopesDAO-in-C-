@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System.Xml.Linq;
 
 namespace DAOMock
 {
@@ -29,6 +30,31 @@ namespace DAOMock
         {
             return new Producer();
         }
+        public void DeleteProducer(int id)
+        {
+            Producer p = (Producer)listOfProducers.Find(x=> x.Id == id);
+            if (p == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            else
+            {
+                listOfProducers.Remove(p);
+            }
+        }
+
+        public void DeleteTelescope(int id)
+        {
+            Telescope t = (Telescope)listOfTelescopes.Find(x => x.Id == id);
+            if (t == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            else
+            {
+                listOfTelescopes.Remove(t);
+            }
+        }
 
         public IEnumerable<IProducer> GetAllProducers()
         {
@@ -40,14 +66,35 @@ namespace DAOMock
             return listOfTelescopes;
         }
 
-        public void InsertNewProducer(IProducer p)
+        public void InsertNewProducer(int id, string name)
         {
-           listOfProducers.Add(p);
+            listOfProducers.Add(new Producer() { Id = id, Name = name });
         }
 
-        public void InsertNewTelescope(ITelescope t)
+        public void InsertNewTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
         {
-            listOfTelescopes.Add(t);
+            listOfTelescopes.Add(new Telescope() { Id = id, Producer = producer, OpticalSystem = opticalSystem,
+                Aperture = aperture, FocalLength = focalLength });  
+        }
+
+        public void ModifyProducer(int id, string name)
+        {
+            try
+            {
+                listOfProducers[id].Name = name;
+            }
+            catch { throw new KeyNotFoundException(); }
+
+        }
+
+        public void ModifyTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        {
+            try
+            {
+                listOfTelescopes[id] = new Telescope() { Id = id, Name = name, Producer = (Producer)producer, 
+                    OpticalSystem = opticalSystem, Aperture = aperture, FocalLength = focalLength };
+            }
+            catch { throw new KeyNotFoundException(); }
         }
     }
 }

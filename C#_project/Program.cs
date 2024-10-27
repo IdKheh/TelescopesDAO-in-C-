@@ -6,8 +6,7 @@ namespace C__project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            Interfaces.IDAO dao = new DAOMock.DAOMock();
+            Interfaces.IDAO dao = new DAOSQL.DAOSQL();
 
             Console.WriteLine("Producers");
             foreach (Interfaces.IProducer p in dao.GetAllProducers())
@@ -19,12 +18,14 @@ namespace C__project
             Console.WriteLine("Telescopes");
             foreach (Interfaces.ITelescope c in dao.GetAllTelescopes())
             {
-                Console.WriteLine($"{c.Id} {c.Name} {c.OpticalSystem} {c.Aperture} {c.FocalLength}");
+                Console.WriteLine($"{c.Id} {c.Name} {c.Producer.Name} {c.OpticalSystem} {c.Aperture} {c.FocalLength}");
             }
 
-            string nameProducer = Console.ReadLine();
-            IProducer producer = dao.CreateNewProducer();
-            producer.Name = nameProducer;
+            foreach (Interfaces.IProducer p in dao.GetAllProducers())
+            {
+                Console.WriteLine($"{p.Id} {p.Name}");
+
+            }
         }
     }
 }
