@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DAOFile\DAOFile.csproj" />
     <ProjectReference Include="..\DAOMock\DAOMock.csproj" />
     <ProjectReference Include="..\DAOSQL\DAOSQL.csproj" />
