@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using System.Collections;
 using System.Data.SQLite;
 using System.Xml.Linq;
 
@@ -42,7 +43,7 @@ namespace DAOSQL
                 }
                 connection.Close();
 
-                if (GetAllProducers() == null)
+                if (!GetAllProducers().Any())
                 {
                     InsertNewProducer(1, "Celeston");
                     InsertNewProducer(2, "Sky-Watcher");
