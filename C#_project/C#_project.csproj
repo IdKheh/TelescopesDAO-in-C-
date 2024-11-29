@@ -9,9 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAOFile\DAOFile.csproj" />
-    <ProjectReference Include="..\DAOMock\DAOMock.csproj" />
-    <ProjectReference Include="..\DAOSQL\DAOSQL.csproj" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLC\BLC.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
   </ItemGroup>
 

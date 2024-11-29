@@ -1,59 +1,58 @@
 ﻿using Interfaces;
+using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
 namespace DAOMock
 {
     public class DAOMock : Interfaces.IDAO
     {
-        public List<ITelescope> listOfTelescopes;
-        public List<IProducer> listOfProducers;
+        private ObservableCollection<ITelescope> listOfTelescopes;
+        private ObservableCollection<IProducer> listOfProducers;
 
         #region konstruktory
         public DAOMock()
         {
-            listOfProducers = new List<IProducer>();
+            listOfProducers = new ObservableCollection<IProducer>();
             listOfProducers.Add(new Producer() { Id = 1, Name = "Celestron" });
             listOfProducers.Add(new Producer() { Id = 2, Name = "Sky-Watcher" });
             listOfProducers.Add(new Producer() { Id = 3, Name = "Taurus" });
 
-            listOfTelescopes = new List<ITelescope>();
-            listOfTelescopes.Add(new Telescope() { Id = 1, Name = "AstroMaster", Producer = listOfProducers[0], OpticalSystem = OpticalSystem.Newton, Aperture=130, FocalLength=650 });
-            listOfTelescopes.Add(new Telescope() { Id = 2, Name = "Travel Scope", Producer = listOfProducers[0], OpticalSystem = OpticalSystem.Refractor, Aperture = 70, FocalLength = 400 });
-            listOfTelescopes.Add(new Telescope() { Id = 3, Name = "BK MAK 127 EQ3-2", Producer = listOfProducers[1], OpticalSystem = OpticalSystem.MaksutovCassegrain, Aperture = 127, FocalLength = 1500 });
-            listOfTelescopes.Add(new Telescope() { Id = 4, Name = "BKP 15075 EQ3-2", Producer = listOfProducers[1], OpticalSystem = OpticalSystem.Newton, Aperture = 150, FocalLength = 750 });
-            listOfTelescopes.Add(new Telescope() { Id = 5, Name = "T300", Producer = listOfProducers[2], OpticalSystem = OpticalSystem.Newton, Aperture = 152, FocalLength = 1500 });
-            listOfTelescopes.Add(new Telescope() { Id = 6, Name = "T500", Producer = listOfProducers[2], OpticalSystem = OpticalSystem.Newton, Aperture = 504, FocalLength = 2150 });
+            listOfTelescopes = new ObservableCollection <ITelescope>();
+            listOfTelescopes.Add(new Telescope() { Id = 1, Name = "AstroMaster", Producer = listOfProducers[0] as Producer, OpticalSystem = OpticalSystem.Newton, Aperture=130, FocalLength=650 });
+            listOfTelescopes.Add(new Telescope() { Id = 2, Name = "Travel Scope", Producer = listOfProducers[0] as Producer, OpticalSystem = OpticalSystem.Refractor, Aperture = 70, FocalLength = 400 });
+            listOfTelescopes.Add(new Telescope() { Id = 3, Name = "BK MAK 127 EQ3-2", Producer = listOfProducers[1] as Producer, OpticalSystem = OpticalSystem.MaksutovCassegrain, Aperture = 127, FocalLength = 1500 });
+            listOfTelescopes.Add(new Telescope() { Id = 4, Name = "BKP 15075 EQ3-2", Producer = listOfProducers[1] as Producer, OpticalSystem = OpticalSystem.Newton, Aperture = 150, FocalLength = 750 });
+            listOfTelescopes.Add(new Telescope() { Id = 5, Name = "T300", Producer = listOfProducers[2] as Producer, OpticalSystem = OpticalSystem.Newton, Aperture = 152, FocalLength = 1500 });
+            listOfTelescopes.Add(new Telescope() { Id = 6, Name = "T500", Producer = listOfProducers[2] as Producer, OpticalSystem = OpticalSystem.Newton, Aperture = 504, FocalLength = 2150 });
         }
         #endregion
+
+        ~DAOMock()
+        {
+            listOfProducers.Clear();
+            listOfTelescopes.Clear();
+        }
+
+        public void AddProducer(IProducer producer)
+        {
+            Producer p = producer as Producer;
+            listOfProducers.Add(p);
+        }
+
+        public void AddTelescope(ITelescope telescope)
+        {
+            Telescope t = telescope as Telescope;
+            listOfTelescopes.Add(t);
+        }
 
         public IProducer CreateNewProducer()
         {
             return new Producer();
         }
-        public void DeleteProducer(int id)
-        {
-            Producer p = (Producer)listOfProducers.Find(x=> x.Id == id);
-            if (p == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            else
-            {
-                listOfProducers.Remove(p);
-            }
-        }
 
-        public void DeleteTelescope(int id)
+        public ITelescope CreateNewTelescope()
         {
-            Telescope t = (Telescope)listOfTelescopes.Find(x => x.Id == id);
-            if (t == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            else
-            {
-                listOfTelescopes.Remove(t);
-            }
+            return new Telescope();
         }
 
         public IEnumerable<IProducer> GetAllProducers()
@@ -66,35 +65,26 @@ namespace DAOMock
             return listOfTelescopes;
         }
 
-        public void InsertNewProducer(int id, string name)
+        public void RemoveProducer(IProducer producer)
         {
-            listOfProducers.Add(new Producer() { Id = id, Name = name });
+            Producer p = producer as Producer;
+            listOfProducers.Remove(p);
         }
 
-        public void InsertNewTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        public void RemoveTelescope(ITelescope telescope)
         {
-            listOfTelescopes.Add(new Telescope() { Id = id, Producer = producer, OpticalSystem = opticalSystem,
-                Aperture = aperture, FocalLength = focalLength });  
+            Telescope t = telescope as Telescope;
+            listOfTelescopes.Remove(t);
         }
 
-        public void ModifyProducer(int id, string name)
+        public void SaveChanges()
         {
-            try
-            {
-                listOfProducers[id].Name = name;
-            }
-            catch { throw new KeyNotFoundException(); }
-
+            this.SaveChanges();
         }
 
-        public void ModifyTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        public void UpdateTelescope(ITelescope telescope)
         {
-            try
-            {
-                listOfTelescopes[id] = new Telescope() { Id = id, Name = name, Producer = (Producer)producer, 
-                    OpticalSystem = opticalSystem, Aperture = aperture, FocalLength = focalLength };
-            }
-            catch { throw new KeyNotFoundException(); }
+            throw new NotImplementedException();
         }
     }
 }

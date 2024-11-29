@@ -1,24 +1,18 @@
 ﻿using Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace DAOFile
 {
     public class DAOFile : IDAO
     {
-        public List<ITelescope> listOfTelescopes;
-        public List<IProducer> listOfProducers;
+        private ObservableCollection<ITelescope> listOfTelescopes;
+        private ObservableCollection<IProducer> listOfProducers;
 
         public DAOFile()
         {
-            listOfProducers = new List<IProducer>();
-            listOfTelescopes = new List<ITelescope>();
+            listOfProducers = new ObservableCollection<IProducer>();
+            listOfTelescopes = new ObservableCollection<ITelescope>();
+            #region loadConfigFile
             string[] content = LoadFromFile();
             bool isEndOfProducent = false;
             if (content != null)
@@ -42,7 +36,7 @@ namespace DAOFile
                         OpticalSystem opticalSystem = (OpticalSystem)Enum.Parse(typeof(OpticalSystem), parts[3]);
                         Producer producer = null;
 
-                        foreach(var p in listOfProducers)
+                        foreach (var p in listOfProducers)
                         {
                             if (p.Name.Equals(parts[2]))
                             {
@@ -51,11 +45,19 @@ namespace DAOFile
                             }
                         }
 
-                        listOfTelescopes.Add(new Telescope() { Id = id,Name = parts[1], Producer = producer,
-                            OpticalSystem= opticalSystem, Aperture = aperture, FocalLength = focalLength});
+                        listOfTelescopes.Add(new Telescope()
+                        {
+                            Id = id,
+                            Name = parts[1],
+                            Producer = producer,
+                            OpticalSystem = opticalSystem,
+                            Aperture = aperture,
+                            FocalLength = focalLength
+                        });
                     }
                 }
             }
+            #endregion
         }
         ~DAOFile()
         {
@@ -64,35 +66,26 @@ namespace DAOFile
             listOfTelescopes.Clear();
         }
 
+        public void AddProducer(IProducer producer)
+        {
+            Producer p = producer as Producer;
+            listOfProducers.Add(p);
+        }
+
+        public void AddTelescope(ITelescope telescope)
+        {
+            Telescope t = telescope as Telescope;
+            listOfTelescopes.Add(t);
+        }
+
         public IProducer CreateNewProducer()
         {
             return new Producer();
         }
 
-        public void DeleteProducer(int id)
+        public ITelescope CreateNewTelescope()
         {
-            Producer p = (Producer)listOfProducers.Find(x => x.Id == id);
-            if (p == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            else
-            {
-                listOfProducers.Remove(p);
-            }
-        }
-
-        public void DeleteTelescope(int id)
-        {
-            Telescope t = (Telescope)listOfTelescopes.Find(x => x.Id == id);
-            if (t == null)
-            {
-                throw new KeyNotFoundException();
-            }
-            else
-            {
-                listOfTelescopes.Remove(t);
-            }
+            return new Telescope();
         }
 
         public IEnumerable<IProducer> GetAllProducers()
@@ -105,48 +98,26 @@ namespace DAOFile
             return listOfTelescopes;
         }
 
-        public void InsertNewProducer(int id, string name)
+        public void RemoveProducer(IProducer producer)
         {
-            listOfProducers.Add(new Producer() { Id = id, Name = name });
+            Producer p = producer as Producer;
+            listOfProducers.Remove(p);
         }
 
-        public void InsertNewTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        public void RemoveTelescope(ITelescope telescope)
         {
-            listOfTelescopes.Add(new Telescope()
-            {
-                Id = id,
-                Producer = producer,
-                OpticalSystem = opticalSystem,
-                Aperture = aperture,
-                FocalLength = focalLength
-            });
+            Telescope t = telescope as Telescope;
+            listOfTelescopes.Remove(t);
         }
 
-        public void ModifyProducer(int id, string name)
+        public void SaveChanges()
         {
-            try
-            {
-                listOfProducers[id].Name = name;
-            }
-            catch { throw new KeyNotFoundException(); }
-
+            this.SaveChanges();
         }
 
-        public void ModifyTelescope(int id, string name, IProducer producer, OpticalSystem opticalSystem, int aperture, int focalLength)
+        public void UpdateTelescope(ITelescope telescope)
         {
-            try
-            {
-                listOfTelescopes[id] = new Telescope()
-                {
-                    Id = id,
-                    Name = name,
-                    Producer = (Producer)producer,
-                    OpticalSystem = opticalSystem,
-                    Aperture = aperture,
-                    FocalLength = focalLength
-                };
-            }
-            catch { throw new KeyNotFoundException(); }
+            throw new NotImplementedException();
         }
 
         private void SaveInFile()
@@ -154,15 +125,17 @@ namespace DAOFile
             string file = "DbInFile.txt";
             string content = "";
 
-            foreach (var p in listOfProducers) {
+            foreach (var p in listOfProducers)
+            {
                 content += $"{p.Id} {p.Name}" + "\n";
             }
             content += "---\n";
-            foreach (var t in listOfTelescopes) {
+            foreach (var t in listOfTelescopes)
+            {
                 content += $"{t.Id} {t.Name} {t.Producer.Name} {t.OpticalSystem} {t.Aperture} {t.FocalLength}" + "\n";
             }
 
-            File.WriteAllText(file,content);
+            File.WriteAllText(file, content);
             Console.WriteLine("Writing to file...");
         }
 
@@ -174,7 +147,8 @@ namespace DAOFile
                 string[] content = File.ReadAllLines(file);
                 return content;
             }
-            else { 
+            else
+            {
                 throw new FileNotFoundException(file);
             }
         }
