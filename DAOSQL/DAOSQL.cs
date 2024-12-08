@@ -55,7 +55,7 @@ namespace DAOSQL
 
         public void RemoveTelescope(ITelescope telescope)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void RemoveProducer(IProducer producer)
@@ -71,6 +71,11 @@ namespace DAOSQL
         void IDAO.SaveChanges()
         {
             this.SaveChanges();
+        }
+
+        public void UndoChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

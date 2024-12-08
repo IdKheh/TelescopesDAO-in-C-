@@ -1,17 +1,22 @@
 ﻿using Interfaces;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Configuration;
 
 namespace DAOFile
 {
     public class DAOFile : IDAO
     {
-        private ObservableCollection<ITelescope> listOfTelescopes;
-        private ObservableCollection<IProducer> listOfProducers;
+        private List<ITelescope> listOfTelescopes;
+        private List<IProducer> listOfProducers;
+
+        private List<ITelescope> oldTelescopes;
+        private List<IProducer> oldProducers;
 
         public DAOFile()
         {
-            listOfProducers = new ObservableCollection<IProducer>();
-            listOfTelescopes = new ObservableCollection<ITelescope>();
+            listOfProducers = new List<IProducer>();
+            listOfTelescopes = new List<ITelescope>();
             #region loadConfigFile
             string[] content = LoadFromFile();
             bool isEndOfProducent = false;
@@ -58,6 +63,8 @@ namespace DAOFile
                 }
             }
             #endregion
+            oldProducers = listOfProducers;
+            oldTelescopes = listOfTelescopes;
         }
         ~DAOFile()
         {
@@ -112,17 +119,26 @@ namespace DAOFile
 
         public void SaveChanges()
         {
-            this.SaveChanges();
+            SaveInFile();
         }
 
         public void UpdateTelescope(ITelescope telescope)
         {
-            throw new NotImplementedException();
+            
+        }
+        public void UpdateProducer(IProducer producer)
+        {
+
+        }
+        public void UndoChanges()
+        {
+            listOfProducers = oldProducers;
+            listOfTelescopes = oldTelescopes;
         }
 
         private void SaveInFile()
         {
-            string file = "DbInFile.txt";
+            string file = ConfigurationManager.AppSettings["dbFile"];
             string content = "";
 
             foreach (var p in listOfProducers)
@@ -141,7 +157,7 @@ namespace DAOFile
 
         private string[] LoadFromFile()
         {
-            string file = "DbInFile.txt";
+            string file = ConfigurationManager.AppSettings["dbFile"];
             if (File.Exists(file))
             {
                 string[] content = File.ReadAllLines(file);
@@ -149,7 +165,7 @@ namespace DAOFile
             }
             else
             {
-                throw new FileNotFoundException(file);
+                throw new WarningException("Database File doesn't exist");
             }
         }
     }

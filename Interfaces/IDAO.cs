@@ -12,5 +12,7 @@
         void RemoveProducer(IProducer producer);
         void UpdateTelescope(ITelescope telescope);
         void SaveChanges();
+        void UndoChanges();
+        void UpdateProducer(IProducer producer);
     }
 }
