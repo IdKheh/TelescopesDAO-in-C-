@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace DAOSQL
 {
@@ -10,62 +11,91 @@ namespace DAOSQL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Filename=D:\Dokumenty_Wiktorii\studia\rok4\sem7\C#\C#_project\DAOSQL\telescopesDB.db");
+            optionsBuilder.UseSqlite("Data Source=app.db;");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Telescope> ()
-                .HasOne(c => c.Producer)
+            modelBuilder.Entity<Telescope>()
+                .HasOne(t => t.Producer)
                 .WithMany(p => p.Telescopes)
-                .HasForeignKey(c => c.ProducerId)
+                .HasForeignKey(t => t.ProducerId)
                 .IsRequired();
         }
+
         public void AddTelescope(ITelescope telescope)
         {
-            Telescope t = telescope as Telescope;
-            Telescopes.Add(t);
+            if (telescope is Telescope t)
+            {
+                Telescopes.Add(t);
+            }
         }
 
         public void AddProducer(IProducer producer)
         {
-            Producer p = producer as Producer;
-            Producers.Add(p);
+            if (producer is Producer p)
+            {
+                Producers.Add(p);
+            }
         }
 
-        public ITelescope CreateNewTelescope()
-        {
-            return new Telescope();
-        }
+        public ITelescope CreateNewTelescope() => new Telescope();
 
-        public IProducer CreateNewProducer()
-        {
-            return new Producer();
-        }
+        public IProducer CreateNewProducer() => new Producer();
 
         public IEnumerable<ITelescope> GetAllTelescopes()
         {
-            var cars = Telescopes.Include("Producer").ToList();
-            return Telescopes;
+            return Telescopes.Include("Producer").ToList();
         }
 
         public IEnumerable<IProducer> GetAllProducers()
         {
-            return Producers;
+            using (var context = new DAOSQL())
+            {
+                context.Database.EnsureCreated();
+            }
+
+            return Producers.ToList();
         }
 
         public void RemoveTelescope(ITelescope telescope)
         {
-            
+            if (telescope is Telescope t)
+            {
+                Telescopes.Remove(t);
+            }
         }
 
         public void RemoveProducer(IProducer producer)
         {
-            throw new NotImplementedException();
+            if (producer is Producer p)
+            {
+                Producers.Remove(p);
+            }
         }
 
         public void UpdateTelescope(ITelescope telescope)
         {
-            throw new NotImplementedException();
+            if (telescope is Telescope t)
+            {
+                var entity = Telescopes.Find(t.Id);
+                if (entity != null)
+                {
+                    Entry(entity).CurrentValues.SetValues(t);
+                }
+            }
+        }
+
+        public void UpdateProducer(IProducer producer)
+        {
+            if (producer is Producer p)
+            {
+                var entity = Producers.Find(p.Id);
+                if (entity != null)
+                {
+                    Entry(entity).CurrentValues.SetValues(p);
+                }
+            }
         }
 
         void IDAO.SaveChanges()
@@ -75,7 +105,14 @@ namespace DAOSQL
 
         public void UndoChanges()
         {
-            throw new NotImplementedException();
+            foreach (var entry in this.ChangeTracker.Entries())
+            {
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.State = EntityState.Unchanged;
+                }
+            }
+            this.SaveChanges();
         }
     }
 }

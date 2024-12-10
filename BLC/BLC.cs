@@ -23,7 +23,6 @@ namespace BLC
                 }
             }
             dao = Activator.CreateInstance(typeToCreate) as Interfaces.IDAO;
-
         }
     }
 }

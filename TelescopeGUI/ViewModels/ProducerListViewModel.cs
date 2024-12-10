@@ -8,6 +8,20 @@ namespace TelescopeGUI.ViewModels
 {
     public class ProducerListViewModel : INotifyPropertyChanged
     {
+        #region singletone
+        private static ProducerListViewModel _instance;
+        private static readonly object _lock = new object();
+        public static ProducerListViewModel Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _instance ??= new ProducerListViewModel();
+                }
+            }
+        }
+        #endregion
         public event PropertyChangedEventHandler? PropertyChanged;
         private ListCollectionView view;
 
@@ -38,6 +52,7 @@ namespace TelescopeGUI.ViewModels
             }
             view = (ListCollectionView)CollectionViewSource.GetDefaultView(producers);
             addNewProducerCommand = new RelayCommand(_ => AddNewProducer(), _ => CanAddNewProducer());
+            deleteProducerCommand = new RelayCommand(_ => DeleteProducer());
             saveProducerCommand = new RelayCommand(_ => SaveProducer(), _ => CanSaveProducer());
             filterDataCommand = new RelayCommand(_ => FilterData());
             undoChangesCommand = new RelayCommand(_ => UndoChanges());
@@ -58,10 +73,7 @@ namespace TelescopeGUI.ViewModels
                 }
 
                 RaisePropertyChanged(nameof(SelectedProducer));
-
-
             }
-
         }
 
         private ProducerViewModel editedProducer;
@@ -134,8 +146,31 @@ namespace TelescopeGUI.ViewModels
                     }
                 }
                 EditedProducer.IsChanged = false;
-                dao.SaveChanges();
                 EditedProducer = null;
+            }
+        }
+        private void DeleteProducer()
+        {
+            if (SelectedProducer != null)
+            {
+                MainWindow telescopeView = new MainWindow();
+                var telescopeListFromView = telescopeView.getTelescopesList();
+                bool isValid = true;
+                foreach(var telescope in telescopeListFromView)
+                {
+                    if (telescope.Producer.Id == SelectedProducer.Id)
+                    {
+                        isValid = false;
+                    }
+                }
+                if (isValid)
+                {
+                    dao.RemoveProducer(selectedProducer.Producer);
+                    producers.Remove(SelectedProducer);
+                    SelectedProducer = null;
+                    dao.SaveChanges();
+                    EditedProducer = null;
+                }
             }
         }
 
@@ -155,7 +190,6 @@ namespace TelescopeGUI.ViewModels
             if (string.IsNullOrEmpty(filter))
             {
                 view.Filter = null;
-
             }
             else
             {
@@ -200,6 +234,11 @@ namespace TelescopeGUI.ViewModels
         public RelayCommand UndoChangesCommand
         {
             get => undoChangesCommand;
+        }
+        private RelayCommand deleteProducerCommand;
+        public RelayCommand DeleteProducerCommand
+        {
+            get => deleteProducerCommand;
         }
     }
 }

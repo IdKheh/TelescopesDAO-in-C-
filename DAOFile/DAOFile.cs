@@ -77,6 +77,7 @@ namespace DAOFile
         {
             Producer p = producer as Producer;
             listOfProducers.Add(p);
+            SaveInFile();
         }
 
         public void AddTelescope(ITelescope telescope)

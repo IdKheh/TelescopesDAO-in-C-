@@ -1,32 +1,38 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using TelescopeGUI.ViewModels;
 
 namespace TelescopeGUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public ICommand ShowTelescopeViewCommand { get; }
-        public ICommand ShowProducerViewCommand { get; }
-
         public MainWindow()
         {
-            ShowTelescopeViewCommand = new RelayCommand(_ => ShowTelescopeView());
-            ShowProducerViewCommand = new RelayCommand(_ => ShowProducerView());
             InitializeComponent();
-            DataContext = new ViewModels.TelescopeListViewModel();
-        }
-        public void ShowTelescopeView()
-        {
-            new TelescopeView();  // Show the Telescope view
+            DataContext = TelescopeListViewModel.Instance;
         }
 
-        public void ShowProducerView()
+        private void SwitchToProducerView_Click(object sender, RoutedEventArgs e)
         {
-            new ProducerView();   // Show the Producer view
+            if (AddButton.IsEnabled)
+            {
+                SwitchToProducerView();
+            }
+        }
+
+        public ObservableCollection<TelescopeViewModel> getTelescopesList()
+        {
+            return TelescopeListViewModel.Instance.Telescopes;
+        }
+
+        private void SwitchToProducerView()
+        {
+            var producerView = new ProducerView();
+            producerView.Show();
+
+            this.Close();
         }
     }
 }

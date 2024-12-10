@@ -1,4 +1,4 @@
 1 Sky-Watcher
 ---
-1 Dobson Sky-Watcher Newton 1000 500
-2 costam Sky-Watcher MaksutovNewton 20000 15000
+1 Dobson xxxxxxxxxx Newton 1000 500
+2 costam Sky-Watcher MaksutovNewton 1000 1000

@@ -69,13 +69,15 @@ FontWeight="Bold" Margin="5">!</TextBlock>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" >
-            <Button Content="Add New Telescope" Command="{Binding AddNewTelescopeCommand}" Margin="10"  />
+            <Button Content="Add New Telescope" Name="AddButton" Command="{Binding AddNewTelescopeCommand}" Margin="10"  />
             <Button Content="Save Telescope" Command="{Binding SaveTelescopeCommand}" Margin="10" />
+            <Button Content="Delete Telescope" Command="{Binding DeleteTelescopeCommand}" Margin="10" />
             <Button Content="Cancel" Command="{Binding UndoChangesCommand}" Margin="10" />
             <TextBox MinWidth="80" Text="{Binding Filter}" Margin="10"></TextBox>
             <Button Content="Filter" Command="{Binding FilterDataCommand}" Margin="10" />
         </StackPanel>
         <StackPanel>
+            <Button Content="Producer View" DockPanel.Dock="Top" Click="SwitchToProducerView_Click" />
             <Grid DataContext="{Binding EditedTelescope}">
 
                 <Grid.ColumnDefinitions>

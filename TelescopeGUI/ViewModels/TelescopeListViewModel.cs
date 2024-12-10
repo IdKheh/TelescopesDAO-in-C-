@@ -8,6 +8,20 @@ namespace TelescopeGUI.ViewModels
 {
     public class TelescopeListViewModel: INotifyPropertyChanged
     {
+        #region singletone
+        private static TelescopeListViewModel _instance;
+        private static readonly object _lock = new object();
+        public static TelescopeListViewModel Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _instance ??= new TelescopeListViewModel();
+                }
+            }
+        }
+        #endregion
         public event PropertyChangedEventHandler? PropertyChanged;
         private ListCollectionView view;
 
@@ -41,6 +55,7 @@ namespace TelescopeGUI.ViewModels
             string libraryName = ConfigurationManager.AppSettings["libraryFile"];
             dao = new BLC.BLC(libraryName).DAO;
             producers = new ObservableCollection<IProducer>(dao.GetAllProducers());
+            updateProducers();
             telescopes = new ObservableCollection<TelescopeViewModel>();
 
             foreach (var telescope in dao.GetAllTelescopes())
@@ -50,17 +65,46 @@ namespace TelescopeGUI.ViewModels
             view = (ListCollectionView)CollectionViewSource.GetDefaultView(telescopes);
             addNewTelescopeCommand = new RelayCommand(_ => AddNewTelescope(), _ => CanAddNewTelescope());
             saveTelescopeCommand = new RelayCommand(_ => SaveTelescope(), _ => CanSaveTelescope());
+            deleteTelescopeCommand = new RelayCommand(_ => DeleteTelescope());
             filterDataCommand = new RelayCommand(_ => FilterData());
             undoChangesCommand = new RelayCommand(_ => UndoChanges());
         }
 
-        private TelescopeViewModel selectedTelescope;
+        private void updateProducers()
+        {
+            ProducerView producerView = new ProducerView();
+            var producerListFromView = producerView.getProducerList();
 
+            foreach (var p in producerListFromView)
+            {
+                var existingProducer = producers.FirstOrDefault(prod => prod.Id == p.Id);
+
+                if (existingProducer != null)
+                {
+                    existingProducer.Name = p.Name;
+                }
+                else
+                {
+                    producers.Add(p.Producer);
+                }
+            }
+            var idsInView = producerListFromView.Select(p => p.Id).ToHashSet(); //usuwanie
+            for (int i = producers.Count - 1; i >= 0; i--)
+            {
+                if (!idsInView.Contains(producers[i].Id))
+                {
+                    producers.RemoveAt(i);
+                }
+            }
+        }
+
+        private TelescopeViewModel selectedTelescope;
         public TelescopeViewModel SelectedTelescope
         {
             get { return selectedTelescope; }
             set
             {
+                updateProducers();
                 selectedTelescope = value;
 
                 if (CanAddNewTelescope())
@@ -69,8 +113,6 @@ namespace TelescopeGUI.ViewModels
                 }
 
                 RaisePropertyChanged(nameof(SelectedTelescope));
-
-
             }
 
         }
@@ -87,6 +129,7 @@ namespace TelescopeGUI.ViewModels
         }
         private void AddNewTelescope()
         {
+            updateProducers();
             TelescopeViewModel cvm = new TelescopeViewModel(dao.CreateNewTelescope());
             EditedTelescope = cvm;
             cvm.IsChanged = true;
@@ -107,6 +150,7 @@ namespace TelescopeGUI.ViewModels
 
         private bool CanSaveTelescope()
         {
+            updateProducers();
             if ((EditedTelescope == null) || (!EditedTelescope.IsChanged))
             {
                 return false;
@@ -145,6 +189,18 @@ namespace TelescopeGUI.ViewModels
                     }
                 }
                 EditedTelescope.IsChanged = false;
+                dao.SaveChanges();
+                EditedTelescope = null;
+            }
+        }
+
+        private void DeleteTelescope()
+        {
+            if (SelectedTelescope!=null)
+            {
+                dao.RemoveTelescope(selectedTelescope.Telescope);
+                telescopes.Remove(SelectedTelescope);
+                SelectedTelescope = null;
                 dao.SaveChanges();
                 EditedTelescope = null;
             }
@@ -211,6 +267,11 @@ namespace TelescopeGUI.ViewModels
         public RelayCommand UndoChangesCommand
         {
             get => undoChangesCommand;
+        }
+        private RelayCommand deleteTelescopeCommand;
+        public RelayCommand DeleteTelescopeCommand
+        {
+            get => deleteTelescopeCommand;
         }
     }
 }

@@ -34,12 +34,6 @@ namespace DAOMock
         }
         #endregion
 
-        ~DAOMock()
-        {
-            listOfProducers.Clear();
-            listOfTelescopes.Clear();
-        }
-
         public void AddProducer(IProducer producer)
         {
             Producer p = producer as Producer;

@@ -21,7 +21,6 @@ namespace C__project
             {
                 Console.WriteLine($"{c.Id} {c.Name} {c.Producer.Name} {c.OpticalSystem} {c.Aperture} {c.FocalLength}");
             }
-            Console.WriteLine("Add Producer");
             dao.CreateNewProducer();
 
             foreach (Interfaces.IProducer p in dao.GetAllProducers())
