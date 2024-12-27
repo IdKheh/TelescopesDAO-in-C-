@@ -1,4 +1,7 @@
-﻿namespace DAOSQL
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DAOSQL
 {
     public class Producer : Interfaces.IProducer
     {

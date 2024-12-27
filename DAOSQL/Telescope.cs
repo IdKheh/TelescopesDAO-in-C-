@@ -7,7 +7,6 @@ namespace DAOSQL
     public class Telescope : ITelescope
     {
         public int Id { get; set; }
-        [Required]
         public Producer Producer { get; set; }
         public int ProducerId { get; set; }
         [Required(ErrorMessage = "Nazwa musi zostać nadana")]

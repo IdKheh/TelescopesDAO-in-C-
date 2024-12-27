@@ -37,7 +37,12 @@ namespace DAOSQL
 
         public ITelescope CreateNewTelescope() => new Telescope();
 
-        public IProducer CreateNewProducer() => new Producer();
+        public IProducer CreateNewProducer()
+        {
+            Producer producer = new Producer();
+            producer.Telescopes = new List<Telescope>();
+            return producer;
+        }
 
         public IEnumerable<ITelescope> GetAllTelescopes()
         {

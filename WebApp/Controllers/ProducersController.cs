@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,145 +11,164 @@ namespace WebApp.Controllers
 {
     public class ProducersController : Controller
     {
-        //private readonly DAOSQL.DAOSQL _context;
+        private readonly IDAO dao;
 
-        public ProducersController()
+        public ProducersController(BLC.BLC blc)
         {
+            dao = blc.DAO;
         }
 
         // GET: Producers
-        //public async Task<IActionResult> Index()
-        //{
-        //    //return View(await _context.Producers.ToListAsync());
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var Producers = dao.GetAllProducers();
+            return View(Producers);
+        }
 
-        //// GET: Producers/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Producers/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var producer = await _context.Producers
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (producer == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var producer = dao.GetAllProducers().FirstOrDefault(x => x.Id == id);
 
-        //    return View(producer);
-        //}
+            if (producer == null)
+            {
+                return NotFound();
+            }
 
-        //// GET: Producers/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+            return View(producer);
+        }
 
-        //// POST: Producers/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name")] Producer producer)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(producer);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(producer);
-        //}
+        // GET: Producers/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //// GET: Producers/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: Producers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(int Id, string Name)
+        {
+            IProducer producer = dao.CreateNewProducer();
+            producer.Name = Name;
 
-        //    var producer = await _context.Producers.FindAsync(id);
-        //    if (producer == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(producer);
-        //}
+            this.ModelState.Clear();
+            this.TryValidateModel(producer);
 
-        //// POST: Producers/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Producer producer)
-        //{
-        //    if (id != producer.Id)
-        //    {
-        //        return NotFound();
-        //    }
+            if (ModelState.IsValid)
+            {
+                dao.AddProducer(producer);
+                dao.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producer);
+        }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(producer);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ProducerExists(producer.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(producer);
-        //}
+        // GET: Producers/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //// GET: Producers/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var producer = dao.GetAllProducers().FirstOrDefault(x => x.Id == id);
+            if (producer == null)
+            {
+                return NotFound();
+            }
+            return View(producer);
+        }
 
-        //    var producer = await _context.Producers
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (producer == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: Producers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, string Name)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IProducer producer = dao.GetAllProducers().FirstOrDefault(p => p.Id == id);
+            IProducer tmp = dao.CreateNewProducer();
+            if (id != producer.Id)
+            {
+                return NotFound();
+            }
 
-        //    return View(producer);
-        //}
+            tmp.Name = Name;
 
-        //// POST: Producers/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var producer = await _context.Producers.FindAsync(id);
-        //    if (producer != null)
-        //    {
-        //        _context.Producers.Remove(producer);
-        //    }
+            this.ModelState.Clear();
+            this.TryValidateModel(tmp);
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            if (ModelState.IsValid)
+            {
+                producer.Name = tmp.Name;
+                try
+                {
+                    dao.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (!ProducerExists(producer.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(tmp);
+        }
 
-        //private bool ProducerExists(int id)
-        //{
-        //    return _context.Producers.Any(e => e.Id == id);
-        //}
+        // GET: Producers/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var producer = dao.GetAllProducers().FirstOrDefault(x => x.Id == id);
+
+            if (producer == null)
+            {
+                return NotFound();
+            }
+
+            return View(producer);
+        }
+
+        // POST: Producers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var producer = dao.GetAllProducers().FirstOrDefault(x => x.Id == id);
+            if (producer != null)
+            {
+                dao.RemoveProducer(producer);
+            }
+
+            dao.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProducerExists(int id)
+        {
+            return dao.GetAllProducers().Any(p => p.Id == id);
+        }
     }
 }
