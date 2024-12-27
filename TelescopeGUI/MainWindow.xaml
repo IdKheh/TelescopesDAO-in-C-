@@ -69,7 +69,7 @@ FontWeight="Bold" Margin="5">!</TextBlock>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" >
-            <Button Content="Add New Telescope" Name="AddButton" Command="{Binding AddNewTelescopeCommand}" Margin="10"  />
+            <Button Content="Add New Telescope" Name="AddButton" Command="{Binding AddNewTelescopeCommand}" Margin="10" Padding="5" />
             <Button Content="Save Telescope" Command="{Binding SaveTelescopeCommand}" Margin="10" />
             <Button Content="Delete Telescope" Command="{Binding DeleteTelescopeCommand}" Margin="10" />
             <Button Content="Cancel" Command="{Binding UndoChangesCommand}" Margin="10" />

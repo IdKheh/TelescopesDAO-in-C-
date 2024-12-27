@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOSQL", "DAOSQL\DAOSQL.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLC", "BLC\BLC.csproj", "{F6264CED-56F0-43DD-95CD-54A7744D308E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelescopeGUI", "TelescopeGUI\TelescopeGUI.csproj", "{F8B60A04-FB22-4399-A53F-DD104A708556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelescopeGUI", "TelescopeGUI\TelescopeGUI.csproj", "{F8B60A04-FB22-4399-A53F-DD104A708556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{51FA6DC9-2C41-4302-A39D-ED1B92178490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{F8B60A04-FB22-4399-A53F-DD104A708556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B60A04-FB22-4399-A53F-DD104A708556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B60A04-FB22-4399-A53F-DD104A708556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51FA6DC9-2C41-4302-A39D-ED1B92178490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51FA6DC9-2C41-4302-A39D-ED1B92178490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51FA6DC9-2C41-4302-A39D-ED1B92178490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51FA6DC9-2C41-4302-A39D-ED1B92178490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

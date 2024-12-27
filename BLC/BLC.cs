@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace BLC
 {
@@ -9,7 +10,18 @@ namespace BLC
 
         public Interfaces.IDAO DAO => dao;
 
+        public BLC(IConfiguration config)
+        {
+            string libraryName = config.GetValue<string>("libraryName");
+            CreateDAO(libraryName);
+        }
+
         public BLC(string libraryName)
+        {
+            CreateDAO(libraryName);
+        }
+
+        private void CreateDAO(string libraryName)
         {
             Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
             Type typeToCreate = null;

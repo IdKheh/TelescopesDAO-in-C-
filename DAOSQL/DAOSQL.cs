@@ -6,12 +6,12 @@ namespace DAOSQL
 {
     public class DAOSQL : DbContext, Interfaces.IDAO
     {
-        private DbSet<Producer> Producers { get; set; }
-        private DbSet<Telescope> Telescopes { get; set; }
+        public DbSet<Producer> Producers { get; set; }
+        public DbSet<Telescope> Telescopes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=app.db;");
+            optionsBuilder.UseSqlite(@"Filename=D:\PUT\VII semestr\Programowanie Wizualne\TelescopesDAO-in-C-\TelescopeGUI\app.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,18 +25,14 @@ namespace DAOSQL
 
         public void AddTelescope(ITelescope telescope)
         {
-            if (telescope is Telescope t)
-            {
-                Telescopes.Add(t);
-            }
+            Telescope t = telescope as Telescope;
+            Telescopes.Add(t);
         }
 
         public void AddProducer(IProducer producer)
         {
-            if (producer is Producer p)
-            {
-                Producers.Add(p);
-            }
+            Producer p = producer as Producer;
+            Producers.Add(p);
         }
 
         public ITelescope CreateNewTelescope() => new Telescope();

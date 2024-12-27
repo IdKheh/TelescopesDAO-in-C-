@@ -1,6 +1,6 @@
 ﻿namespace DAOSQL
 {
-    internal class Producer : Interfaces.IProducer
+    public class Producer : Interfaces.IProducer
     {
         public int Id { get; set; }
         public string Name { get; set; }
