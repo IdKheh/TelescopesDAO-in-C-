@@ -1,8 +1,8 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
-namespace DAOSQL
+namespace Drozdzynski_Debowska.Telescopes.DAOSQL
 {
     public class DAOSQL : DbContext, Interfaces.IDAO
     {

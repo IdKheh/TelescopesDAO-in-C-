@@ -1,10 +1,10 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using TelescopeGUI.ViewModels;
+using Drozdzynski_Debowska.Telescopes.TelescopeGUI.ViewModels;
 
-namespace TelescopeGUI
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI
 {
     public partial class ProducerView : Window
     {

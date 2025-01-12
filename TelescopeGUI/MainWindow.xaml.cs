@@ -2,9 +2,9 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using TelescopeGUI.ViewModels;
+using Drozdzynski_Debowska.Telescopes.TelescopeGUI.ViewModels;
 
-namespace TelescopeGUI
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI
 {
     public partial class MainWindow : Window
     {

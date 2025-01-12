@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Interfaces;
+using Drozdzynski_Debowska.Telescopes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.Controllers
+namespace Drozdzynski_Debowska.Telescopes.WebApp.Controllers
 {
     public class ProducersController : Controller
     {

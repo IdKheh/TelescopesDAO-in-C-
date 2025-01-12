@@ -1,8 +1,8 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DAOSQL
+namespace Drozdzynski_Debowska.Telescopes.DAOSQL
 {
     public class Telescope : ITelescope
     {

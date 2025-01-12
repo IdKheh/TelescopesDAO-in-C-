@@ -1,6 +1,6 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Configuration;
-namespace C__project
+namespace Drozdzynski_Debowska.Telescopes.C__project
 {
     internal class Program
     {

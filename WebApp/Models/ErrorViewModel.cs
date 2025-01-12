@@ -1,4 +1,4 @@
-namespace WebApp.Models
+namespace Drozdzynski_Debowska.Telescopes.WebApp.Models
 {
     public class ErrorViewModel
     {

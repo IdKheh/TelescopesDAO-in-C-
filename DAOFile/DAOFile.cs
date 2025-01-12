@@ -1,9 +1,9 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 
-namespace DAOFile
+namespace Drozdzynski_Debowska.Telescopes.DAOFile
 {
     public class DAOFile : IDAO
     {

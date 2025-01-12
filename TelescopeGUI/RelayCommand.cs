@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace TelescopeGUI
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI
 {
     public class RelayCommand : ICommand
     {

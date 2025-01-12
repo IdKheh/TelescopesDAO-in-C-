@@ -1,10 +1,10 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Data;
 
-namespace TelescopeGUI.ViewModels
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI.ViewModels
 {
     public class TelescopeListViewModel: INotifyPropertyChanged
     {

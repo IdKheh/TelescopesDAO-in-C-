@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace BLC
+namespace Drozdzynski_Debowska.Telescopes.BLC
 {
-    //to powinien być singleton
+    
     public class BLC
     {
         private Interfaces.IDAO dao;

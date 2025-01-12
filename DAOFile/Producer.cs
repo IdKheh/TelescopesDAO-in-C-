@@ -1,6 +1,6 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 
-namespace DAOFile
+namespace Drozdzynski_Debowska.Telescopes.DAOFile
 {
     internal class Producer : IProducer
     {

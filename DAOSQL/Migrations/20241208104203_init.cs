@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DAOSQL.Migrations
+namespace Drozdzynski_Debowska.Telescopes.DAOSQL.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace TelescopeGUI
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI
 {
     /// <summary>
     /// Interaction logic for App.xaml

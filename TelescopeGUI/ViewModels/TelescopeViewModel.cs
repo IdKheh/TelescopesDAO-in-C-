@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace TelescopeGUI.ViewModels
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI.ViewModels
 {
     public class TelescopeViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
     {

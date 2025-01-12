@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelescopeGUI.ViewModels
+namespace Drozdzynski_Debowska.Telescopes.TelescopeGUI.ViewModels
 {
     public class ProducerViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
     {

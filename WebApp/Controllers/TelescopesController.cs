@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Interfaces;
+using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Xml.Linq;
 using System.Runtime.ConstrainedExecution;
 
-namespace WebApp.Controllers
+namespace Drozdzynski_Debowska.Telescopes.WebApp.Controllers
 {
     public class TelescopesController : Controller
     {

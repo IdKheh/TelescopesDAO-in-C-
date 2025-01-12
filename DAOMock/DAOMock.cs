@@ -1,8 +1,8 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
-namespace DAOMock
+namespace Drozdzynski_Debowska.Telescopes.DAOMock
 {
     public class DAOMock : Interfaces.IDAO
     {

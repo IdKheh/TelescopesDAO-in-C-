@@ -1,4 +1,4 @@
-namespace WebApp
+namespace Drozdzynski_Debowska.Telescopes.WebApp
 {
     public class Program
     {

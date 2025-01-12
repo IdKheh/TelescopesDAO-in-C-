@@ -1,7 +1,7 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.Xml.Linq;
 
-namespace DAOMock
+namespace Drozdzynski_Debowska.Telescopes.DAOMock
 {
     internal class Producer : Interfaces.IProducer
     {

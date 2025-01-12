@@ -1,4 +1,4 @@
-﻿namespace Interfaces
+﻿namespace Drozdzynski_Debowska.Telescopes.Interfaces
 {
     public interface IProducer
     {

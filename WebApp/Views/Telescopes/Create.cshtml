@@ -1,4 +1,4 @@
-﻿@model Interfaces.ITelescope
+﻿@model Drozdzynski_Debowska.Telescopes.Interfaces.ITelescope
 
 @{
     ViewData["Title"] = "Create";
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label asp-for="OpticalSystem" class="control-label"></label>
                 <select asp-for="OpticalSystem" class="form-control"
-                    asp-items="Html.GetEnumSelectList<Interfaces.OpticalSystem>()"></select>
+                        asp-items="Html.GetEnumSelectList<Drozdzynski_Debowska.Telescopes.Interfaces.OpticalSystem>()"></select>
                 <span asp-validation-for="OpticalSystem" class="text-danger"></span>
             </div>
             <div class="form-group">

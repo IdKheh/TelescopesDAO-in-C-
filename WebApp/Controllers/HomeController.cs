@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebApp.Models;
+using Drozdzynski_Debowska.Telescopes.WebApp.Models;
 
-namespace WebApp.Controllers
+namespace Drozdzynski_Debowska.Telescopes.WebApp.Controllers
 {
     public class HomeController : Controller
     {

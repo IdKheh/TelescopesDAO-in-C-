@@ -1,7 +1,7 @@
-﻿using Interfaces;
+﻿using Drozdzynski_Debowska.Telescopes.Interfaces;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DAOMock
+namespace Drozdzynski_Debowska.Telescopes.DAOMock
 {
     internal class Telescope : Interfaces.ITelescope
     {
